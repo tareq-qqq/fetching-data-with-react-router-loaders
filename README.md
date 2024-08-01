@@ -1,10 +1,3 @@
-# react-tailwind-template
+# Fetching Data in React with React Router and React Query
+Just a simple project to implement fetching data in react with react router and react query
 
-A Vite template with:
-
-- react
-- tailwind
-- postcss
-- postcss autoprefixer
-- postcss nesting
-- tailwind prettier plugin.

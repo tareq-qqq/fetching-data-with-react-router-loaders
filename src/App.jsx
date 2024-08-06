@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorElement from "./components/errors/error-element";
 import NotFound from "./components/errors/not-found";
 import Friends from "./routes/friends";
-import Post, { loader as postLoader } from "./routes/post";
+import Post from "./routes/post";
 import Posts from "./routes/posts";
 import Root from "./routes/root";
 import User, { loader as userLoader } from "./routes/user";
@@ -27,7 +27,6 @@ const router = createBrowserRouter([
           {
             path: "/post/:postId",
             element: <Post />,
-            loader: postLoader,
             id: "post",
           },
           {

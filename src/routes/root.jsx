@@ -32,7 +32,6 @@ function Root() {
         // all the other pathnames will scroll to the top always
         getKey={(location) => {
           const paths = ["/posts", "/"];
-          console.log(location);
           return paths.includes(location.pathname) ||
             location.pathname.startsWith("/user")
             ? location.pathname

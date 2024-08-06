@@ -9,6 +9,8 @@ import User from "./routes/user";
 import Friends from "./routes/friends";
 import ErrorElement from "./components/errors/error-element";
 import NotFound from "./components/errors/not-found";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import queryClient from "./vendors/query-client";
 
 const router = createBrowserRouter([
   {
@@ -53,7 +55,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <ReactQueryDevtools client={queryClient} />
+    </>
+  );
 }
 
 export default App;

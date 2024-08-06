@@ -3,7 +3,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorElement from "./components/errors/error-element";
 import NotFound from "./components/errors/not-found";
-import Friends, { loader as friendsLoader } from "./routes/friends";
+import Friends from "./routes/friends";
 import Post, { loader as postLoader } from "./routes/post";
 import Posts from "./routes/posts";
 import Root from "./routes/root";
@@ -33,7 +33,6 @@ const router = createBrowserRouter([
           {
             path: "/friends",
             element: <Friends />,
-            loader: friendsLoader,
           },
           {
             path: "/user/:userId",

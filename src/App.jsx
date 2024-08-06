@@ -1,15 +1,13 @@
+import { QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Root from "./routes/root";
-import Post from "./routes/post";
-import Posts, { loader as postsLoader } from "./routes/posts";
-import { loader as postLoader } from "./routes/post";
-import { loader as userLoader } from "./routes/user";
-import { loader as friendsLoader } from "./routes/friends";
-import User from "./routes/user";
-import Friends from "./routes/friends";
 import ErrorElement from "./components/errors/error-element";
 import NotFound from "./components/errors/not-found";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import Friends, { loader as friendsLoader } from "./routes/friends";
+import Post, { loader as postLoader } from "./routes/post";
+import Posts from "./routes/posts";
+import Root from "./routes/root";
+import User, { loader as userLoader } from "./routes/user";
 import queryClient from "./vendors/query-client";
 
 const router = createBrowserRouter([
@@ -21,11 +19,10 @@ const router = createBrowserRouter([
       {
         errorElement: <ErrorElement />,
         children: [
-          { index: true, element: <Posts />, loader: postsLoader },
+          { index: true, element: <Posts /> },
           {
             path: "/posts",
             element: <Posts />,
-            loader: postsLoader,
           },
           {
             path: "/post/:postId",
@@ -47,7 +44,6 @@ const router = createBrowserRouter([
             path: "*",
             element: <NotFound />,
           },
-          // { path: "/friends", element: <Friends /> },
         ],
       },
     ],
@@ -57,8 +53,10 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
-      <ReactQueryDevtools client={queryClient} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+        <ReactQueryDevtools client={queryClient} />
+      </QueryClientProvider>
     </>
   );
 }

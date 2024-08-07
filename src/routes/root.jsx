@@ -1,9 +1,9 @@
 import { Outlet, ScrollRestoration, useNavigation } from "react-router-dom";
 import RootNav from "../pages/root/root-nav";
+import { useState } from "react";
+import path from "path";
 
 function Root() {
-  const navigation = useNavigation();
-  const pathname = navigation.location?.pathname;
   return (
     <div className="container mx-auto px-4 py-10 ">
       <h1 className="mb-4 text-2xl font-medium">Root Page:</h1>
@@ -30,10 +30,11 @@ function Root() {
         // so it doesn't scroll to the top whenever you navigate to them no matter how you navigate to them
         // ( back button, or clicking on a NavLink)
         // all the other pathnames will scroll to the top always
-        getKey={(location) => {
+        getKey={(location, matches) => {
+          console.log("r");
           const paths = ["/posts", "/"];
-          return paths.includes(location.pathname) ||
-            location.pathname.startsWith("/user")
+          return paths.includes(location.pathname) &&
+            location.pathname != location.state?.previousPathname
             ? location.pathname
             : location.key;
         }}

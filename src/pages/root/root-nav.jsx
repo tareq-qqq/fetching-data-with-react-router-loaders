@@ -27,7 +27,7 @@ function RootNav({ className }) {
         <li>
           <NavLink
             to={"/friends"}
-            state={{ previousPathname: path }}
+            state={{ previousPathname: path, key: Date.now() }}
             className={({ isActive, isPending, isTransitioning }) => {
               return cn(
                 " underline-offset-4 transition-colors hover:text-blue-600 active:text-black",

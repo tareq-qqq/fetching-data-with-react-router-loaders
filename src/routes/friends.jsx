@@ -3,9 +3,11 @@ import { NavLink } from "react-router-dom";
 import { getUsers } from "../api/users-api";
 import FriendsLoader from "../components/skeletons/friends-loader";
 import cn from "../utils/cn";
+import { useInvalidateOnNavigation } from "../hooks/useInvalidateOnNavigation";
 
 function Friends() {
   const friendsQuery = useQuery({ queryKey: ["friends"], queryFn: getUsers });
+  useInvalidateOnNavigation(["friends"]);
 
   if (friendsQuery.isPending) {
     return <FriendsLoader />;

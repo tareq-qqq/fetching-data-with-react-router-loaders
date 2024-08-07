@@ -1,12 +1,13 @@
 import { Outlet, ScrollRestoration, useNavigation } from "react-router-dom";
 import RootNav from "../pages/root/root-nav";
-import { useState } from "react";
 
 function Root() {
   return (
     <>
       <div className="mx-auto px-4 pt-10 ">
-        <h1 className="mb-4 text-2xl font-medium">Root Page:</h1>
+        <h1 className="mb-4 text-2xl font-medium">
+          Fetching data in <span>React</span>
+        </h1>
       </div>
       <RootNav className={"mb-4"} />
 
@@ -32,7 +33,6 @@ function Root() {
         // ( back button, or clicking on a NavLink)
         // all the other pathnames will scroll to the top always
         getKey={(location) => {
-          console.log("r");
           const paths = ["/posts", "/"];
           return paths.includes(location.pathname) &&
             location.pathname != location.state?.previousPathname

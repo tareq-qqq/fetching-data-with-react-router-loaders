@@ -31,7 +31,7 @@ function Root() {
         // so it doesn't scroll to the top whenever you navigate to them no matter how you navigate to them
         // ( back button, or clicking on a NavLink)
         // all the other pathnames will scroll to the top always
-        getKey={(location, matches) => {
+        getKey={(location) => {
           console.log("r");
           const paths = ["/posts", "/"];
           return paths.includes(location.pathname) &&

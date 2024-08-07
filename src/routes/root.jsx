@@ -1,13 +1,14 @@
 import { Outlet, ScrollRestoration, useNavigation } from "react-router-dom";
 import RootNav from "../pages/root/root-nav";
 import { useState } from "react";
-import path from "path";
 
 function Root() {
   return (
-    <div className="container mx-auto px-4 py-10 ">
-      <h1 className="mb-4 text-2xl font-medium">Root Page:</h1>
-      <RootNav />
+    <>
+      <div className="mx-auto px-4 pt-10 ">
+        <h1 className="mb-4 text-2xl font-medium">Root Page:</h1>
+      </div>
+      <RootNav className={"mb-4"} />
 
       {/* You need to use react router defer to dislay localized loading ui instead of this madness */}
 
@@ -20,7 +21,7 @@ function Root() {
       ) : pathname?.includes("/post") ? (
         "Post is loading..."
       ) : ( */}
-      <div>
+      <div className="container mx-auto px-4">
         <Outlet />
       </div>
       {/* )} */}
@@ -39,7 +40,7 @@ function Root() {
             : location.key;
         }}
       />
-    </div>
+    </>
   );
 }
 

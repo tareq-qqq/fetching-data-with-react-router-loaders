@@ -1,10 +1,21 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getPosts } from "../api/posts-api";
 import PaginatedPostsList from "../components/paginated-posts/paginated-posts-list";
 import PaginatedPostsListSkeleton from "../components/skeletons/paginated-posts-list-skeleton";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 function Posts() {
   const postsQuery = useQuery({ queryKey: ["posts"], queryFn: getPosts });
+  const queryClient = useQueryClient();
+  const { state } = useLocation();
+  const key = state.key;
+
+  useEffect(() => {
+    if (!queryClient.isFetching({ queryKey: ["posts"] })) {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+    }
+  }, [key, queryClient]);
 
   if (postsQuery.isPending) {
     return <PaginatedPostsListSkeleton />;

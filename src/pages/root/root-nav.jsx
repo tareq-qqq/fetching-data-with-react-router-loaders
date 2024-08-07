@@ -1,15 +1,14 @@
 import { useLocation, NavLink } from "react-router-dom";
-import { twJoin } from "tailwind-merge";
 import cn from "../../utils/cn";
-function RootNav() {
+function RootNav({ className }) {
   const path = useLocation().pathname;
   return (
-    <nav className="sticky top-0 bg-white">
+    <nav className={cn("sticky top-0  border-b-2 bg-white", className)}>
       <ul className="wrap flex gap-8 px-4 py-5 ">
         <li>
           <NavLink
             to={"/posts"}
-            state={{ previousPathname: path }}
+            state={{ previousPathname: path, key: Date.now() }}
             className={({ isActive, isTransitioning, isPending }) => {
               return cn(
                 " underline-offset-4 transition-colors hover:text-blue-600 active:text-black",

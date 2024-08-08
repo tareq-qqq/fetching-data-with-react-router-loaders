@@ -5,9 +5,12 @@ import { getPost } from "../api/posts-api";
 import PostElement from "../components/post-element";
 import PostSkeleton from "../components/skeletons/post-skeleton";
 import BackButton from "../components/ui/back-button";
+import { useInvalidateOnNavigation } from "../hooks/useInvalidateOnNavigation";
 
 function Post() {
   const { postId } = useParams();
+
+  useInvalidateOnNavigation(["post", postId]);
 
   // This won't refresh if the user clicks the NavLink in the same route
   // ex:

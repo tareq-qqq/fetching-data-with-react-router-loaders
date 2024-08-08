@@ -3,7 +3,7 @@ import cn from "../../utils/cn";
 function RootNav({ className }) {
   const path = useLocation().pathname;
   return (
-    <nav className={cn("sticky top-0  border-b-2 bg-white", className)}>
+    <nav className={cn(" sticky top-0 z-10  border-b-2 bg-white", className)}>
       <ul className="wrap flex gap-8 px-4 py-5 ">
         <li>
           <NavLink

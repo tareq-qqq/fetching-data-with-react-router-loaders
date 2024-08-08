@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@nextui-org/pagination": "^2.0.35",
+    "@nextui-org/progress": "^2.0.33",
     "@nextui-org/skeleton": "^2.0.31",
     "@nextui-org/spinner": "^2.0.33",
     "@nextui-org/system": "^2.2.5",

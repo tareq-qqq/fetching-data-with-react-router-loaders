@@ -9,7 +9,7 @@ function Root() {
           Fetching data in <span>React</span>
         </h1>
       </div>
-      <RootNav className={"mb-4"} />
+      <RootNav />
 
       {/* You need to use react router defer to dislay localized loading ui instead of this madness */}
 
@@ -22,7 +22,7 @@ function Root() {
       ) : pathname?.includes("/post") ? (
         "Post is loading..."
       ) : ( */}
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto my-4 px-4">
         <Outlet />
       </div>
       {/* )} */}

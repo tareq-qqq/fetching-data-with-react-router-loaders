@@ -1,18 +1,17 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Comment from "./comment";
 import cn from "../utils/cn";
 
 function PostElement({ post, comments }) {
   const { id, title, body } = post;
+  const path = useLocation().pathname;
   return (
     <div className="mx-auto  max-w-xl rounded bg-gray-200 p-5 shadow-lg">
       <h2 className="text-lg font-medium">
         <NavLink
           to={`/post/${id}`}
-          className={cn("hover:underline", {
-            "pointer-events-none":
-              navigation.location?.pathname === `/post/${id}`,
-          })}
+          className={cn("hover:underline")}
+          state={{ previousPathname: path }}
         >
           {title}
         </NavLink>

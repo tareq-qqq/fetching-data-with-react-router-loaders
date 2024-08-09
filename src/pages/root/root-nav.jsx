@@ -1,9 +1,17 @@
-import { useLocation, NavLink } from "react-router-dom";
+import { useLocation, NavLink, useNavigation } from "react-router-dom";
 import cn from "../../utils/cn";
+import { useIsFetching } from "@tanstack/react-query";
+import { Progress } from "@nextui-org/progress";
 function RootNav({ className }) {
   const path = useLocation().pathname;
+  // since we're using deferred data in our router loaders the navigation won't be in loading state for long
+  // so the deferred promises would still be pending even though the navigation is in the idle state
+  const navigation = useNavigation();
+  const numOfFetching = useIsFetching();
+  const isFetching = numOfFetching > 0 || navigation.state === "loading";
+
   return (
-    <nav className={cn(" sticky top-0 z-10  border-b-2 bg-white", className)}>
+    <nav className={cn("sticky top-0 z-10 bg-white", className)}>
       <ul className="wrap flex gap-8 px-4 py-5 ">
         <li>
           <NavLink
@@ -44,6 +52,13 @@ function RootNav({ className }) {
           </NavLink>
         </li>
       </ul>
+      <Progress
+        aria-label="Loading..."
+        color="primary"
+        radius="none"
+        isIndeterminate={isFetching}
+        className="h-[2px] "
+      />
     </nav>
   );
 }

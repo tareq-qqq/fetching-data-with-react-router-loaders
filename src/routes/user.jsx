@@ -1,13 +1,7 @@
-import {
-  Await,
-  defer,
-  useLoaderData,
-  useRouteLoaderData,
-} from "react-router-dom";
-import { getUser, getUserPosts } from "../api/users-api";
-import Posts from "./posts";
-import PaginatedPostsList from "../components/paginated-posts/paginated-posts-list";
 import { Suspense } from "react";
+import { Await, defer, useLoaderData } from "react-router-dom";
+import { getUser, getUserPosts } from "../api/users-api";
+import PaginatedPostsList from "../components/paginated-posts/paginated-posts-list";
 import UserSkeleton from "../components/skeletons/user-skeleton";
 
 export async function loader({ params }) {

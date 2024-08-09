@@ -52,13 +52,16 @@ function RootNav({ className }) {
           </NavLink>
         </li>
       </ul>
-      <Progress
-        aria-label="Loading..."
-        color="primary"
-        radius="none"
-        isIndeterminate={isFetching}
-        className="h-[2px] "
-      />
+      {!isFetching && <div className="h-[1.75px] w-full bg-gray-200"></div>}
+      {isFetching && (
+        <Progress
+          aria-label="Loading..."
+          color="primary"
+          radius="none"
+          isIndeterminate={isFetching}
+          classNames={{ track: "h-[1.75px]" }}
+        />
+      )}
     </nav>
   );
 }

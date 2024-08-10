@@ -30,7 +30,12 @@ const Search = forwardRef(function Search(props, ref) {
       <input
         ref={ref}
         type="search"
-        className="relative w-full  rounded border-2 border-gray-400 p-1 pl-8 outline-none focus-visible:border-black "
+        className={cn(
+          "relative w-full  rounded border border-gray-400 p-1 pl-8 outline-none focus-visible:border-black ",
+          {
+            "border-2": focus,
+          },
+        )}
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
         placeholder="Search posts..."

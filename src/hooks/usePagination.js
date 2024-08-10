@@ -9,6 +9,8 @@ export function usePagination({ itemsPerPage, data }) {
   //   setPrevData(data);
   //   setPageIndex(0);
   // }
+  console.log(data);
+
   useEffect(() => {
     setPageIndex(0);
   }, [data]);

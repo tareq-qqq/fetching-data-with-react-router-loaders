@@ -1,7 +1,9 @@
 import { Outlet, ScrollRestoration, useNavigation } from "react-router-dom";
 import RootNav from "../pages/root/root-nav";
+import { useRef } from "react";
 
 function Root() {
+  const searchRef = useRef(null);
   return (
     <>
       <div className="container mx-auto ">
@@ -11,7 +13,7 @@ function Root() {
           </h1>
         </div>
       </div>
-      <RootNav />
+      <RootNav ref={searchRef} />
 
       {/* You need to use react router defer to dislay localized loading ui instead of this madness */}
 
@@ -25,7 +27,7 @@ function Root() {
         "Post is loading..."
       ) : ( */}
       <div className="container mx-auto my-4 px-4">
-        <Outlet />
+        <Outlet context={searchRef} />
       </div>
       {/* )} */}
 

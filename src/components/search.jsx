@@ -1,5 +1,5 @@
 import { Search as SearchIcon, SendToBack } from "lucide-react";
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import cn from "../utils/cn";
 import {
   Form,
@@ -9,12 +9,13 @@ import {
 } from "react-router-dom";
 import { useDebouncedCallback } from "use-debounce";
 
-function Search() {
+const Search = forwardRef(function Search(props, ref) {
   const [focus, setFocus] = useState(false);
   const [value, setValue] = useState("");
   const submit = useSubmit();
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
+  const { pathname } = useLocation();
 
   useEffect(() => {
     setValue(query);
@@ -25,8 +26,9 @@ function Search() {
   }, 300);
 
   return (
-    <Form action="." className="relative w-full max-w-sm">
+    <Form action={pathname} className="relative w-full max-w-sm">
       <input
+        ref={ref}
         type="search"
         className="relative w-full  rounded border-2 border-gray-400 p-1 pl-8 outline-none focus-visible:border-black "
         onFocus={() => setFocus(true)}
@@ -48,5 +50,5 @@ function Search() {
       />
     </Form>
   );
-}
+});
 export default Search;

@@ -4,13 +4,14 @@ import PaginatedPostsList from "../components/paginated-posts/paginated-posts-li
 import PaginatedPostsListSkeleton from "../components/skeletons/paginated-posts-list-skeleton";
 import { useInvalidateOnNavigation } from "../hooks/useInvalidateOnNavigation";
 import { useSearchParams } from "react-router-dom";
-import { matchSorter } from "match-sorter";
+import { useRef } from "react";
 
 function Posts() {
   const postsQuery = useQuery({ queryKey: ["posts"], queryFn: getPosts });
   useInvalidateOnNavigation(["posts"]);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q");
+  const ref = useRef(null);
 
   if (postsQuery.isPending) {
     return <PaginatedPostsListSkeleton />;
@@ -22,16 +23,8 @@ function Posts() {
 
   const posts = postsQuery.data;
 
-  return (
-    <PaginatedPostsList
-      posts={
-        query
-          ? matchSorter(posts, query, {
-              keys: ["title", "body"],
-            })
-          : posts
-      }
-    />
-  );
+  console.log(ref.current);
+
+  return <PaginatedPostsList query={query} posts={posts} />;
 }
 export default Posts;

@@ -3,7 +3,9 @@ import cn from "../../utils/cn";
 import { useIsFetching } from "@tanstack/react-query";
 import { Progress } from "@nextui-org/progress";
 import Search from "../../components/search";
-function RootNav({ className }) {
+import { forwardRef } from "react";
+
+const RootNav = forwardRef(function RootNav({ className }, ref) {
   const path = useLocation().pathname;
   // since we're using deferred data in our router loaders the navigation won't be in loading state for long
   // so the deferred promises would still be pending even though the navigation is in the idle state
@@ -57,7 +59,7 @@ function RootNav({ className }) {
         </ul>
         {onPosts && (
           <div className="flex justify-end">
-            <Search />
+            <Search ref={ref} />
           </div>
         )}
       </div>
@@ -74,5 +76,5 @@ function RootNav({ className }) {
       )}
     </nav>
   );
-}
+});
 export default RootNav;

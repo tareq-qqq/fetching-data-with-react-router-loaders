@@ -18,12 +18,11 @@ function Search() {
 
   useEffect(() => {
     setValue(query);
-    console.log(`setting value to ${query}`);
   }, [query]);
 
   const debouncedSubmit = useDebouncedCallback((value) => {
     submit(value);
-  }, 500);
+  }, 300);
 
   return (
     <Form action="." className="relative w-full max-w-sm">
@@ -38,7 +37,7 @@ function Search() {
         onChange={(e) => {
           const value = e.target.value;
           setValue(value);
-          submit(e.target.form, { replace: !(query == null) });
+          debouncedSubmit(e.target.form, { replace: !(query == null) });
         }}
       />
       <SearchIcon

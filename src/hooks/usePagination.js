@@ -1,7 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function usePagination({ itemsPerPage, data }) {
   const [pageIndex, setPageIndex] = useState(0);
+  // const [prevData, setPrevData] = useState(data);
+
+  // if (data !== prevData) {
+  //   console.log("data is changing");
+  //   setPrevData(data);
+  //   setPageIndex(0);
+  // }
+  useEffect(() => {
+    setPageIndex(0);
+  }, [data]);
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
 

@@ -1,13 +1,21 @@
 import { Search as SearchIcon, SendToBack } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import cn from "../utils/cn";
-import { Form, useSubmit } from "react-router-dom";
+import { Form, useLocation, useSubmit } from "react-router-dom";
 import { useDebouncedCallback } from "use-debounce";
 
 function Search() {
   const [focus, setFocus] = useState(false);
   const [value, setValue] = useState("");
   const submit = useSubmit();
+  const { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+  const query = searchParams.get("q");
+
+  useEffect(() => {
+    setValue(query);
+    console.log(`setting value to ${query}`);
+  }, [query]);
 
   const debouncedSubmit = useDebouncedCallback((value) => {
     submit(value);
@@ -22,11 +30,11 @@ function Search() {
         onBlur={() => setFocus(false)}
         placeholder="Search posts..."
         name="q"
-        value={value}
+        value={value || ""}
         onChange={(e) => {
           const value = e.target.value;
           setValue(value);
-          submit(value);
+          submit(e.target.form, { replace: !(query == null) });
         }}
       />
       <SearchIcon

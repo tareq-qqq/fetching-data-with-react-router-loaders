@@ -4,10 +4,12 @@ import RootNav from "../pages/root/root-nav";
 function Root() {
   return (
     <>
-      <div className="mx-auto px-4 pt-10 ">
-        <h1 className="mb-4 text-2xl font-medium">
-          Fetching data in <span>React</span>
-        </h1>
+      <div className="container mx-auto ">
+        <div className="mx-auto px-4 pt-10 ">
+          <h1 className="mb-4 text-2xl font-medium">
+            Fetching data in <span>React</span>
+          </h1>
+        </div>
       </div>
       <RootNav />
 

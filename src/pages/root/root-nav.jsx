@@ -4,7 +4,7 @@ import { useIsFetching } from "@tanstack/react-query";
 import { Progress } from "@nextui-org/progress";
 import Search from "../../components/search";
 import { forwardRef } from "react";
-
+import { AnimatePresence, motion } from "framer-motion";
 const RootNav = forwardRef(function RootNav({ className }, ref) {
   const path = useLocation().pathname;
   // since we're using deferred data in our router loaders the navigation won't be in loading state for long
@@ -57,11 +57,18 @@ const RootNav = forwardRef(function RootNav({ className }, ref) {
             </NavLink>
           </li>
         </ul>
-        {onPosts && (
-          <div className="flex justify-end">
-            <Search ref={ref} />
-          </div>
-        )}
+        <AnimatePresence>
+          {onPosts && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="flex justify-end"
+            >
+              <Search ref={ref} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {!isFetching && <div className="h-[1.75px] w-full bg-gray-200"></div>}

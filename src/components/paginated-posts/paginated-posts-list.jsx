@@ -45,7 +45,9 @@ const PaginatedPostsList = forwardRef(function PaginatedPostsList(
       });
     }
     if (markerRef.current && q && searchIsFocused) {
-      markerRef.current.mark(q);
+      markerRef.current.mark(q, {
+        exclude: ["#not-found"],
+      });
     }
 
     return () => {

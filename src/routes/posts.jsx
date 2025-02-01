@@ -23,8 +23,6 @@ function Posts() {
 
   const posts = postsQuery.data;
 
-  console.log(ref.current);
-
   return <PaginatedPostsList query={query} posts={posts} />;
 }
 export default Posts;

@@ -3,8 +3,19 @@ import { usePagination } from "../../hooks/usePagination";
 import cn from "../../utils/cn";
 import classes from "./paginated-posts-list.module.css";
 import PostElement from "../post-element";
-import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
-import { useOutletContext, useSearchParams } from "react-router-dom";
+import {
+  forwardRef,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import {
+  useNavigation,
+  useOutletContext,
+  useSearchParams,
+} from "react-router-dom";
 import Mark from "mark.js";
 import { matchSorter } from "match-sorter";
 
@@ -12,10 +23,17 @@ const PaginatedPostsList = forwardRef(function PaginatedPostsList(
   { posts },
   ref,
 ) {
-  const searchRef = useOutletContext();
+  const { searchRef, postsContainerRef } = useOutletContext();
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
   const [searchIsFocused, setIsSearchFocused] = useState(false);
+  const scrollMarginRef = useRef(
+    document.getElementById("root-nav").offsetHeight,
+  );
+
+  useLayoutEffect(() => {
+    scrollMarginRef.current = document.getElementById("root-nav").offsetHeight;
+  });
 
   const visiblePosts = useMemo(() => {
     if (query) {
@@ -27,10 +45,7 @@ const PaginatedPostsList = forwardRef(function PaginatedPostsList(
     return posts;
   }, [query, posts]);
 
-  console.log(visiblePosts);
-
   const markerRef = useRef(null);
-  const containerRef = useRef(null);
 
   const { totalPages, data, setPageIndex, pageIndex } = usePagination({
     itemsPerPage: 8,
@@ -39,8 +54,8 @@ const PaginatedPostsList = forwardRef(function PaginatedPostsList(
 
   useEffect(() => {
     let q = query;
-    if (!markerRef.current && containerRef.current) {
-      markerRef.current = new Mark(containerRef.current, {
+    if (!markerRef.current && postsContainerRef.current) {
+      markerRef.current = new Mark(postsContainerRef.current, {
         acrossElements: true,
       });
     }
@@ -53,22 +68,21 @@ const PaginatedPostsList = forwardRef(function PaginatedPostsList(
     return () => {
       markerRef.current?.unmark(q);
     };
-  }, [query, pageIndex, searchRef, searchIsFocused]);
+  }, [query, pageIndex, searchRef, searchIsFocused, postsContainerRef]);
 
   useEffect(() => {
     const searchElem = searchRef.current;
     let q = query;
-    console.log(searchElem);
     function onBlur(e) {
-      console.log("blur");
       setIsSearchFocused(false);
-      if (containerRef.current && markerRef.current) {
+      if (postsContainerRef.current && markerRef.current) {
         markerRef.current.unmark();
       }
     }
 
     function onFocus(e) {
       setIsSearchFocused(true);
+      postsContainerRef.current.scrollIntoView({ behavior: "smooth" });
       if (q && markerRef.current) {
         markerRef.current.mark(q);
       }
@@ -81,13 +95,16 @@ const PaginatedPostsList = forwardRef(function PaginatedPostsList(
       searchElem?.removeEventListener("blur", onBlur);
       searchElem?.removeEventListener("focus", onFocus);
     };
-  }, [searchRef, query]);
-
-  console.log(data);
+  }, [searchRef, query, postsContainerRef]);
 
   return (
     <>
-      <div ref={containerRef} className={cn("mb-4", classes.posts)}>
+      <div
+        id="posts-container"
+        ref={postsContainerRef}
+        className={cn("mb-4 ", classes.posts)}
+        style={{ scrollMarginTop: `calc(${scrollMarginRef.current}px + 1rem)` }}
+      >
         {data.length > 0 ? (
           data.map((post) => <PostElement key={post.id} post={post} />)
         ) : (

@@ -4,6 +4,7 @@ import { useRef } from "react";
 
 function Root() {
   const searchRef = useRef(null);
+  const postsContainerRef = useRef(null);
   return (
     <>
       <div className="container mx-auto ">
@@ -13,7 +14,7 @@ function Root() {
           </h1>
         </div>
       </div>
-      <RootNav ref={searchRef} />
+      <RootNav ref={searchRef} containerRef={postsContainerRef} />
 
       {/* You need to use react router defer to dislay localized loading ui instead of this madness */}
 
@@ -27,7 +28,7 @@ function Root() {
         "Post is loading..."
       ) : ( */}
       <div className="container mx-auto my-4 px-4">
-        <Outlet context={searchRef} />
+        <Outlet context={{ searchRef, postsContainerRef }} />
       </div>
       {/* )} */}
 
